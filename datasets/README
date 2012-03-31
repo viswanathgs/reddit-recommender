@@ -1,0 +1,26 @@
+publicvotes-20101018_votes.dat
+	Entire dataset - 23091688 lines, 2.2 GB.
+	Format: account_id	link_id subreddit_id	direction.
+
+publicvotes-sorted.dat
+	First 10000000 lines of publicvotes-20101018_votes.dat sorted based on 
+	account_id and subreddit_id.
+	Format: account_id	subreddit_id	direction.
+
+affinities-1e7.dat
+	Affinities for publicvotes-sorted.dat (1e7 lines) using 0.0 to 1.0 
+	scale (zero vote affinity = 0.5). 
+	Contains 448871 unique (account_id, subreddit_id) pairs.
+	Format: account_id	subreddit_id	affinity
+
+affinities-100sr.dat
+	Top 100 frequently occurring sub-reddits of affinities-1e7.dat.
+	Contains 337898 unique (account_id, subreddit_id) pairs.
+
+train.dat
+	Training set.
+	90000 lines from affinities-100sr.dat.
+
+test.dat
+	Testing set.
+	10000 lines from affinities-100sr.dat.
