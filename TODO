@@ -1,5 +1,5 @@
-Wrapper for cross validation (10 fold)
 Experiments with different metrics for subreddit-account affinity (-1.0 to 1.0 scale, TFIDF and log-based if possible)
 More experiments with different thresholds
 Metrics other than euclidean distance
 Experiments with more subreddits (may be 200)
+Confusion matrix
