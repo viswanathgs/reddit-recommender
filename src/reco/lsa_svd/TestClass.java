@@ -2,6 +2,8 @@ package reco.lsa_svd;
 
 import java.io.IOException;
 
+import utils.CrossValidator;
+
 public class TestClass {
 
 	/**
@@ -9,10 +11,8 @@ public class TestClass {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		String trainFile = "datasets/train.dat";
-		String testFile = "datasets/test.dat";
-		SVDRecommender svdRecommender = new SVDRecommender(trainFile, testFile);
-		svdRecommender.train();
-		svdRecommender.test();
+		String inputFile = "datasets/affinities-100sr-shuffled.dat";
+		CrossValidator crossValidator = new CrossValidator(inputFile);
+		crossValidator.validate();
 	}
 }
