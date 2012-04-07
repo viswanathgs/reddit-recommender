@@ -17,6 +17,9 @@ affinities-100sr.dat
 	Top 100 frequently occurring sub-reddits of affinities-1e7.dat.
 	Contains 337898 unique (account_id, subreddit_id) pairs.
 
+affinities-100sr-shuffled.dat
+	Shuffled version of the first 100000 lines of affinities-100sr.dat.
+
 train.dat
 	Training set.
 	90000 lines from affinities-100sr.dat.
