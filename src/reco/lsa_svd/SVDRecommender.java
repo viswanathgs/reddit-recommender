@@ -1,4 +1,4 @@
-package lsa_svd;
+package reco.lsa_svd;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,12 +11,12 @@ import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.SingularValueDecomposition;
 
-public class SVDRecommender {
-	String trainFile;
-	String testFile;
+import reco.Recommender;
+
+public class SVDRecommender extends Recommender {
 	Map<String, Integer> accountIDs;
 	Map<String, Integer> subredditIDs;
-	RealMatrix termDocumentMatrix; // terms - subreddits, documents - accounts (users)
+	RealMatrix termDocumentMatrix; // terms - sub-reddits, documents - accounts (users)
 	int accountCount; // number of columns
 	int subredditCount; // number of rows
 	RealMatrix U; // left singular values
@@ -27,16 +27,20 @@ public class SVDRecommender {
 	 * 
 	 * @param trainFile (account_id, subreddit_id, affinity)
 	 * @param testFile (account_id, subreddit_id, affinity)
-	 * @throws IOException 
+	 * @throws IOException
+	 */
+	public SVDRecommender(String trainFile, String testFile) {
+		super(trainFile, testFile);
+	}
+	
+	/**
 	 * 
 	 * Term document matrix is created with subreddits as terms and
 	 * accounts (users) as documents. SVD is applied and U and V matrices
 	 * are computed.
 	 */
-	public SVDRecommender(String trainFile, String testFile) throws IOException {
-		this.trainFile = trainFile;
-		this.testFile = testFile;
-		
+	@Override
+	public void train() throws IOException {
 		// Populate accountIDs and subredditIDs
 		BufferedReader fin = new BufferedReader(new FileReader(trainFile));
 		accountIDs = new HashMap<String, Integer>();
@@ -95,7 +99,8 @@ public class SVDRecommender {
 	}
 	
 	// TODO Incomplete
-	void test() throws IOException {
+	@Override
+	public void test() throws IOException {
 		BufferedReader fin = new BufferedReader(new FileReader(testFile));
 		String line;
 		threshold = 1.03;

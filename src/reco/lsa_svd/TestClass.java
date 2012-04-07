@@ -1,8 +1,8 @@
-package lsa_svd;
+package reco.lsa_svd;
 
 import java.io.IOException;
 
-public class Recommender {
+public class TestClass {
 
 	/**
 	 * @param args
@@ -12,6 +12,7 @@ public class Recommender {
 		String trainFile = "datasets/train.dat";
 		String testFile = "datasets/test.dat";
 		SVDRecommender svdRecommender = new SVDRecommender(trainFile, testFile);
+		svdRecommender.train();
+		svdRecommender.test();
 	}
-
 }
