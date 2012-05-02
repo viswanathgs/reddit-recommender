@@ -7,7 +7,7 @@ affinities-100sr-shuffled.dat
 53% accuracy with 10-fold cross validation, with euclidean distance as the metric,
 and threshold of 1.03. Affinities are in the range 0.0 to 1.0, zeroAffinityValue = 0.5.
 
-TODO: Test with affinity scale [-1.0, 1.0], vary threshold.
-TODO: Dig up the paper from downloads.
+// TODO Test with affinity scale [-1.0, 1.0], vary threshold.
+// TODO Dig up the paper from downloads.
 
 **********************************
