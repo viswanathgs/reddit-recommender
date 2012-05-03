@@ -73,8 +73,8 @@ public class ClustKNNRecommender {
 		double accuracy = (double)match / (double)total;
 		double precision = (double)tp / (double)(tp + fp);
 		double recall = (double)tp / (double)(tp + fn);
-		System.out.println("Accuracy = " + accuracy + " Precision = " + precision + " Recall = " + recall);
-		System.out.println("tp = " + tp + " tn = " + tn + " fp = " + fp + " fn = " + fn);
+		System.out.println("Accuracy = " + accuracy + "\nPrecision = " + precision + "\nRecall = " + recall);
+		System.out.println("Confusion matrix:\ntp = " + tp + " tn = " + tn + " fp = " + fp + " fn = " + fn);
 		return accuracy;
 	}
 	
