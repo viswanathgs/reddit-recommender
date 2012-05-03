@@ -51,6 +51,28 @@ def filter_top_subreddits(infile, outfile, max_subreddits):
 	fin.close()
 	fout.close()
 
+def count_class_members(infile, div_point):
+	'''
+		Takes a file that contains lines of (account_id, subreddit_id, affinity) tuples,
+		and calculates the number of members in each class (affinity > div_point and the
+		rest).
+	'''
+
+	fin = open(infile, 'r')
+	true_class_count = 0
+	false_class_count = 0
+
+	for line in fin:
+		if float(line.split()[2]) > div_point:
+			true_class_count += 1
+		else:
+			false_class_count += 1
+	fin.close()
+
+	print 'True class = ' + str(true_class_count)
+	print 'False class = ' + str(false_class_count)
+
 if __name__ == '__main__':
 #	sort_dump('../../datasets/publicvotes-20101018_votes.dat', '../../datasets/publicvotes-sorted.dat', 10000000)
-	filter_top_subreddits('../../datasets/affinities-1e7.dat', '../../datasets/affinities-100sr.dat', 100)
+	filter_top_subreddits('../../datasets/affinities-1e7-scale.dat', '../../datasets/affinities-150sr-scale.dat', 150)
+#	count_class_members('../../datasets/affinities-100sr-shuffled-scale.dat', 0.5)

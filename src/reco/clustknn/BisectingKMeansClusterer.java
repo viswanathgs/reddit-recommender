@@ -19,11 +19,12 @@ public class BisectingKMeansClusterer {
 	}
 	
 	List<Cluster<EuclideanDoublePoint>> cluster() {
-		// Direct k-means
+		// Basic k-means
 //		Random random = new Random();
 //		KMeansPlusPlusClusterer<EuclideanDoublePoint> kMeansClusterer = new KMeansPlusPlusClusterer<EuclideanDoublePoint>(random);
-//		return kMeansClusterer.cluster(points, k, 50);	
-		
+//		return kMeansClusterer.cluster(points, k, 100);	
+	
+		// Bisecting k-means
 		List<Cluster<EuclideanDoublePoint>> clusters = new ArrayList<Cluster<EuclideanDoublePoint>>();
 		
 		// Initialize the cluster of all points
@@ -47,7 +48,7 @@ public class BisectingKMeansClusterer {
 			Random random = new Random();
 			KMeansPlusPlusClusterer<EuclideanDoublePoint> kMeansClusterer = new KMeansPlusPlusClusterer<EuclideanDoublePoint>(random);
 			// TODO iter
-			List<Cluster<EuclideanDoublePoint>> bisectedClusters = kMeansClusterer.cluster(clusters.get(maxCluster).getPoints(), 2, 100);
+			List<Cluster<EuclideanDoublePoint>> bisectedClusters = kMeansClusterer.cluster(clusters.get(maxCluster).getPoints(), 2, 50);
 			clusters.remove(maxCluster);
 			clusters.addAll(bisectedClusters);
 		}

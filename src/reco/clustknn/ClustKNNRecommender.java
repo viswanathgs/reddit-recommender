@@ -12,7 +12,7 @@ import org.apache.commons.math3.stat.clustering.Cluster;
 public class ClustKNNRecommender {
 	Collection<EuclideanDoublePoint> surrogateUsers;
 	int k;
-	
+
 	public ClustKNNRecommender(int k) {
 		this.k = k;
 	}
@@ -49,9 +49,8 @@ public class ClustKNNRecommender {
 				}
 					
 				double score = computePredictionScore(sortedSurrogateSimilarities, point, i, l);
-				System.out.println("score = " + score + " pointi = " + point.getPoint()[i]);
+				//System.out.println("score = " + score + " pointi = " + point.getPoint()[i]);
 				
-				// TODO
 				if (score > threshold) {
 					if (point.getPoint()[i] > 0.5) {
 						match++;
@@ -72,7 +71,9 @@ public class ClustKNNRecommender {
 		}
 		
 		double accuracy = (double)match / (double)total;
-		System.out.println("Accuracy = " + accuracy);
+		double precision = (double)tp / (double)(tp + fp);
+		double recall = (double)tp / (double)(tp + fn);
+		System.out.println("Accuracy = " + accuracy + " Precision = " + precision + " Recall = " + recall);
 		System.out.println("tp = " + tp + " tn = " + tn + " fp = " + fp + " fn = " + fn);
 		return accuracy;
 	}

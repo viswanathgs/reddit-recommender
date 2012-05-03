@@ -8,11 +8,13 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 
 public class AffinityCalculator {
-	public static double zeroVoteAffinity;
-	
+	public double zeroVoteAffinity;
+
 	public AffinityCalculator() {
 		// TODO zeroVoteAffinity - change this to reflect the metric.
-		zeroVoteAffinity = 0.5;
+		// zeroVoteAffinity = 0.5;
+		// -1.0 to 1.0 scale
+		zeroVoteAffinity = 0.0;
 	}
 	
 	/**
@@ -25,7 +27,7 @@ public class AffinityCalculator {
 	 * The result is written to outFile in the format
 	 * account_id	subreddit_id	affinity. 
 	 */
-	public static void calculateAffinities(String inFile, String outFile) throws IOException {
+	public void calculateAffinities(String inFile, String outFile) throws IOException {
 		BufferedReader fin = new BufferedReader(new FileReader(inFile));
 		BufferedWriter fout = new BufferedWriter(new FileWriter(outFile));
 		String line;
@@ -77,11 +79,13 @@ public class AffinityCalculator {
 	 * 	Experiment different affinity metrics. Try -1.0 to 1.0 scale.
 	 * 
 	 */
-	private static double affinityMetric(int upvotes, int totalvotes) {
+	private double affinityMetric(int upvotes, int totalvotes) {
 		if (totalvotes == 0) {
 			return zeroVoteAffinity;
 		} else {
-			return (double)upvotes / (double)totalvotes;
+			// return (double)upvotes / (double)totalvotes;
+			// -1.0 to 1.0 scale
+			return ((double)upvotes / (double)totalvotes) * 2.0 - 1.0;
 		}
 	}
 }

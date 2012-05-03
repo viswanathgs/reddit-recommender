@@ -96,6 +96,6 @@ public class ClustKNNValidator {
 		// TODO k, l, threshold
 		ClustKNNRecommender recommender = new ClustKNNRecommender(50);
 		recommender.train(trainPoints);
-		return recommender.test(testPoints, 50, 0.18);
+		return recommender.test(testPoints, 50, 0.12);
 	}
 }

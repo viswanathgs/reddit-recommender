@@ -80,7 +80,8 @@ public class SVDRecommender extends Recommender {
 		termDocumentMatrix = new Array2DRowRealMatrix(subredditCount, accountCount);
 		for (int i = 0; i < subredditCount; ++i) {
 			for (int j = 0; j < accountCount; ++j) {
-				termDocumentMatrix.setEntry(i, j, utils.AffinityCalculator.zeroVoteAffinity);
+				// TODO modify zeroVoteAffinity
+				termDocumentMatrix.setEntry(i, j, 0.0);
 			}
 		}
 		
@@ -116,10 +117,15 @@ public class SVDRecommender extends Recommender {
 		BufferedReader fin = new BufferedReader(new FileReader(testFile));
 		String line;
 		//TODO
-		threshold = 1.03;
+		threshold = 1.07;
 		int match = 0;
 		int total = 0;
 		int lineNumber = -1;
+		int tp = 0;
+		int tn = 0;
+		int fp = 0;
+		int fn = 0;
+		int failCount = 0;
 		while ((line = fin.readLine()) != null) {
 			lineNumber++;
 			if (testLineBegin != -1) {
@@ -136,21 +142,41 @@ public class SVDRecommender extends Recommender {
 			Double affinity = Double.parseDouble(lineTokenizer.nextToken());
 			
 			if (!subredditIDs.containsKey(subreddit) || !accountIDs.containsKey(account)) {
+				failCount++;
 				continue;
 			}
 			double distance = euclideanDistance(U.getRow(subredditIDs.get(subreddit)), V.getRow(accountIDs.get(account)));
 			
 //			System.out.println(line + "\tdist = " + distance);
-			if ((distance < threshold) && (affinity > 0.8)) {
-				match++;
-			} else if ((distance >= threshold) && (affinity <= 0.8)) {
-				match++;
+			// TODO affinity check
+			if (distance < threshold) {
+				if (affinity > 0.5) {
+					match++;
+					tp++;
+				} else {
+					fp++;
+				}
+			} else {
+				if (affinity <= 0.5) {
+					match++;
+					tn++;
+				} else {
+					fn++;
+				}
 			}
 			total++;
 		}
 	
+		// Classifying the pairs that have not been trained as negative
+		tn += failCount;
+		match += failCount;
+		
 		double accuracy = (double)match / (double)total;
-		System.out.println("Accuracy = " + accuracy);
+		double precision = (double)tp / (double)(tp + fp);
+		double recall = (double)tp / (double)(tp + fn);
+		System.out.println("Accuracy = " + accuracy + " Precision = " + precision + " Recall = " + recall);
+		System.out.println("tp = " + tp + " tn = " + tn + " fp = " + fp + " fn = " + fn);
+		// System.out.println("failCount = " + failCount);
 		return accuracy;
 	}
 	
